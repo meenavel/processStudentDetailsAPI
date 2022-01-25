@@ -1,0 +1,2 @@
+--INSERT INTO STUDENT (stud_Id, first_Name, last_Name, year, dob, doj) VALUES (1, 'Siva', 'Meena', 0, '12/10/2021', '12/10/2021');
+INSERT INTO STUDENT VALUES (1000, 'Raksha', 'Karthik', 0, '12/10/2021', '12/10/2021');
