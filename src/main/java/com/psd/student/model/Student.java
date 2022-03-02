@@ -13,7 +13,6 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public class Student {
     @Id

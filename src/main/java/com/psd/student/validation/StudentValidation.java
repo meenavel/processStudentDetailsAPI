@@ -9,11 +9,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.psd.student.constants.PSDConstants.DATE_REGEX;
+
 @Component
 public class StudentValidation {
+
 
     public List<Student> validateStudentdetails(List<Student> studentList) throws PSDException {
 
@@ -36,6 +42,7 @@ public class StudentValidation {
         for (Student student : studentList) {
             if(StringUtils.isEmpty(validateStudent(student)))
                 validStudent.add(student);
+            logger.info("Valid Student " + validStudent);
         }
         return validStudent;
     }
@@ -53,14 +60,46 @@ public class StudentValidation {
         if (student.getYear() < 1
                 || student.getYear() > 12)
             sb.append("  Year,");
-        if (StringUtils.isEmpty(student.getDob())
-                || !student.getDob().matches(PSDConstants.DATE_REGEX))
-            sb.append("  DOB,");
-        if (StringUtils.isEmpty(student.getDoj())
-                || !student.getDoj().matches(PSDConstants.DATE_REGEX))
-            sb.append("  DOJ");
+        if(dateValidation(student.getDob()))
+            sb.append("  Dob," );
+
+        if(dateValidation(student.getDoj()))
+            sb.append("  doj");
+
+//        if (StringUtils.isEmpty(student.getDob())
+//                || !student.getDob().matches(PSDConstants.DATE_REGEX))
+//            sb.append("  DOB,");
+//        if (StringUtils.isEmpty(student.getDoj())
+//                || !student.getDoj().matches(PSDConstants.DATE_REGEX))
+//            sb.append("  DOJ");
 
         return sb.toString();
     }
-}
+
+    private boolean dateValidation(String dob) {
+        boolean status = false;
+        if (checkDate(dob)) {
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            dateFormat.setLenient(false);
+            try {
+                dateFormat.parse(dob);
+
+            } catch ( ParseException e) {
+                status = true;
+                e.printStackTrace();
+            }
+        }
+        return status;
+    }
+    static boolean checkDate(String date) {
+        String pattern = DATE_REGEX ;                  //"(0?[1-9]|[12][0-9]|3[01])\\/(0?[1-9]|1[0-2])\\/([0-9]{4})";
+        boolean flag = false;
+        if (date.matches(pattern)) {
+            flag = true;
+        }
+        return flag;
+    }
+    }
+
+
 

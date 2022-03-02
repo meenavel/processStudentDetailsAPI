@@ -6,9 +6,11 @@ import com.psd.student.model.APIResponse;
 import com.psd.student.model.Student;
 import com.psd.student.validation.StudentValidation;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
@@ -18,6 +20,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static com.psd.student.constants.PSDConstants.*;
 
+@RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
 public class PSDServiceTests {
 
